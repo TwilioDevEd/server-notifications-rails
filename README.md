@@ -1,8 +1,8 @@
-# SMS Notifications
+# Server Notifications & Alerts
 
-![godfather appointment](app/assets/images/the-godfather-1.jpg "Don't miss an appointment")
+![server status](http://howtodocs.s3.amazonaws.com/new-relic-monitor.png "Server notifications")
 
-Use Twilio to create sms notifications to keep your subscribers in the loop.
+Use Twilio to create sms server alerts so that you never miss a critical server issue.
 
 ## Running the application
 
@@ -30,5 +30,3 @@ Hit the button!
 
 This application uses this Twilio helper library:
 * twilio-ruby
-
-Please visit these libraries and pay your respects.
