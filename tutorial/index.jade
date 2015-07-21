@@ -1,0 +1,81 @@
+.chapter(data-title='Server Notifications & Alerts')
+  .step(data-title='App Flow')
+    :markdown
+      ## Server Notifications Flow
+
+      * Something happens on your server
+      * An SMS alert is sent to all Administrators
+
+      Click the next arrow to continue.
+
+  .step(data-title='User Story: Administrator', data-file='db/schema.rb')
+    h2 User Story: Administrator
+    blockquote As an Administrator I would like to sign up to receive alerts.
+    :markdown
+      Requirements:
+      * an `Administrator` model object with a `:phone_number` attribute
+      * a web form to sign up 
+      * a controller to render that web form
+
+  .step(data-title='The Administrator Model', data-file='db/schema.rb')
+    :markdown
+      ## The Schema
+
+      * Requires `:phone_number`
+
+  .step(data-title='The Web Form', data-file='app/views/administrators/new.html.erb')
+    :markdown
+      ## Form for the Administrator resource
+
+      * The rails [form_for](http://guides.rubyonrails.org/form_helpers.html#binding-a-form-to-an-object) tag automatically updates the named resource. In this case the Administrator.
+      * A simple `:phone_number` field is all we need
+
+  .step(data-title='Administrator Controller', data-file='app/controllers/administrators_controller.rb', data-highlight='6-14, 18-22')
+    :markdown
+      ## Creating an Administrator
+
+      * This controller creates a new Administrator with the [accepted params](http://api.rubyonrails.org/classes/ActionController/Parameters.html)
+      * If the new model is [valid](http://api.rubyonrails.org/classes/ActiveRecord/Validations.html#method-i-valid-3F) then redirect to the [home_path](http://guides.rubyonrails.org/routing.html#naming-routes)
+
+  .step(data-title='Sending Alerts', data-file='app/controllers/notifications_controller.rb')
+    h2 User Story:
+    blockquote As an Administrator, I would like to trigger a "test" server event, via a web interface.
+    :markdown
+      Requirements:
+      * a button to trigger the fake server event
+      * a controller to trigger the SMS alert
+      * a function that sends an SMS using Twilio
+
+  .step(data-title='Notifications Controller', data-file='app/controllers/notifications_controller.rb', data-highlight='1-20')
+    :markdown
+      ## The trigger controller
+
+      This controller does a few things:
+      * defines a message, this could be dynamically generated
+      * gets an image, this could be a screenshot from [New Relic](http://newrelic.com/) or some other server monitor
+      * loops through all `Administrators` and calls `send_message`
+      * flashes a message to the user
+
+  .step(data-title='The Message Controller', data-file='app/controllers/notifications_controller.rb', data-highlight='27-39')
+    :markdown
+      ## Sending and SMS
+
+      This controller does a few things:
+      * pulls a few [environment variables](http://ruby-doc.org/core-2.1.4/ENV.html)
+      * initiates the [Twilio REST client](http://twilio-ruby.readthedocs.org/en/latest/usage/basics.html#authentication)
+      * [sends a Text Message](https://www.twilio.com/docs/quickstart/ruby/sms/sending-via-rest) using the REST API
+
+  .step(data-title='Trigger Button', data-file='app/views/notifications/index.html.erb')
+    :markdown
+      ## Triggering the test alert
+
+      A simple bootstrap styled button that will make a GET request to '/trigger'.
+
+  .step(data-title='Finish')
+  :markdown
+    ## All Done!
+
+    That's it! We've just implemented an automated server notification system that can send you server alerts if anything goes wrong.
+
+    Thanks for checking out this tutorial! If you have any feedback to share with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) to let us know what you think.
+
