@@ -22,7 +22,7 @@ class NotificationsController < ApplicationController
       rescue
         flash[:alert] = "Something when wrong."
       end
-      
+
     end
 
     redirect_to '/'
@@ -46,7 +46,8 @@ class NotificationsController < ApplicationController
         :from => @twilio_number,
         :to => phone_number,
         :body => alert_message,
-        :media_url => image_url
+        # US phone numbers can make use of an image as well.
+        # :media_url => image_url 
       )
       puts message.to
     end
