@@ -1,75 +1,39 @@
 .chapter(data-title='Server Notifications & Alerts')
-  .step(data-title='App Flow')
+  .step(data-title='List server admins', data-file='config/administrators.yml')
     :markdown
-      ## Server Notifications Flow
+      ## List server admins
 
-      * Something happens on your server
-      * An SMS alert is sent to all Administrators
+      Create a list of administrators who should be notified if a server error occurs. The only requirement we have is a `phone_number`.
 
-      Click the next arrow to continue.
-
-  .step(data-title='User Story: Administrator', data-file='db/schema.rb')
-    h2 User Story: Administrator
-    blockquote As an Administrator I would like to sign up to receive alerts.
+  .step(data-title='Configure Twilio client', data-file='app/controllers/notifications_controller.rb', data-highlight='40-43')
     :markdown
-      Requirements:
-      * an `Administrator` model object with a `:phone_number` attribute
-      * a web form to sign up 
-      * a controller to render that web form
+      ## Configure Twilio client
 
-  .step(data-title='The Administrator Model', data-file='db/schema.rb')
+      In order to send a message we'll need to initiate the [Twilio REST client](http://twilio-ruby.readthedocs.org/en/latest/usage/basics.html#authentication), which requires pulling our `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`  [environment variables](http://ruby-doc.org/core-2.1.4/ENV.html).
+
+  .step(data-title='Handle all exceptions', data-file='app/controllers/notifications_controller.rb', data-highlight='3-5')
     :markdown
-      ## The Schema
+      ## Handle all exceptions on a controller
 
-      * Requires `:phone_number`
+      Here we ensure any [`StandardError`](http://ruby-doc.org/core-2.2.0/Exception.html) triggers our alert methods with [`rescue_from`](http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html#method-i-rescue_from).
 
-  .step(data-title='The Web Form', data-file='app/views/administrators/new.html.erb')
+  .step(data-title='Custom alert', data-file='app/controllers/notifications_controller.rb', data-highlight='7-13')
     :markdown
-      ## Form for the Administrator resource
+      ## Create a custom alert message
 
-      * The rails [form_for](http://guides.rubyonrails.org/form_helpers.html#binding-a-form-to-an-object) tag automatically updates the named resource. In this case the Administrator.
-      * A simple `:phone_number` field is all we need
+      Here we create a custom alert message and include the raised exception. Additionally if available it would make sense to include a snapshot of any server monitor we might have.
 
-  .step(data-title='Administrator Controller', data-file='app/controllers/administrators_controller.rb', data-highlight='6-14, 18-22')
+  .step(data-title='Read the admins', data-file='app/controllers/notifications_controller.rb', data-highlight='15-21')
     :markdown
-      ## Creating an Administrator
+      ## Reading the admins from file
 
-      * This controller creates a new Administrator with the [accepted params](http://api.rubyonrails.org/classes/ActionController/Parameters.html)
-      * If the new model is [valid](http://api.rubyonrails.org/classes/ActiveRecord/Validations.html#method-i-valid-3F) then redirect to the [home_path](http://guides.rubyonrails.org/routing.html#naming-routes)
+      Next we read the admins [from file](http://ruby-doc.org/stdlib-1.8.6/libdoc/yaml/rdoc/YAML.html#load_file-method), loop through them and fire off our SMS method.
 
-  .step(data-title='Sending Alerts', data-file='app/controllers/notifications_controller.rb')
-    h2 User Story:
-    blockquote As an Administrator, I would like to trigger a "test" server event, via a web interface.
+  .step(data-title='Sending an SMS', data-file='app/controllers/notifications_controller.rb', data-highlight='41-54')
     :markdown
-      Requirements:
-      * a button to trigger the fake server event
-      * a controller to trigger the SMS alert
-      * a function that sends an SMS using Twilio
+      ## Sending an SMS
 
-  .step(data-title='Notifications Controller', data-file='app/controllers/notifications_controller.rb', data-highlight='1-20')
-    :markdown
-      ## The trigger controller
-
-      This controller does a few things:
-      * defines a message, this could be dynamically generated
-      * gets an image, this could be a screenshot from [New Relic](http://newrelic.com/) or some other server monitor
-      * loops through all `Administrators` and calls `send_message`
-      * flashes a message to the user
-
-  .step(data-title='The Message Controller', data-file='app/controllers/notifications_controller.rb', data-highlight='27-39')
-    :markdown
-      ## Sending and SMS
-
-      This controller does a few things:
-      * pulls a few [environment variables](http://ruby-doc.org/core-2.1.4/ENV.html)
-      * initiates the [Twilio REST client](http://twilio-ruby.readthedocs.org/en/latest/usage/basics.html#authentication)
-      * [sends a Text Message](https://www.twilio.com/docs/quickstart/ruby/sms/sending-via-rest) using the REST API
-
-  .step(data-title='Trigger Button', data-file='app/views/notifications/index.html.erb')
-    :markdown
-      ## Triggering the test alert
-
-      A simple bootstrap styled button that will make a GET request to '/trigger'.
+      Here are all the three paramters needed to send an SMS using the Twilio REST API: a `:from`, `:to` and `:body`. At the end we simply print out the phone number we're dialing. 
 
   .step(data-title='Finish')
     :markdown

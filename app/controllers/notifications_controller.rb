@@ -13,17 +13,18 @@ class NotificationsController < ApplicationController
     @image_url = "http://howtodocs.s3.amazonaws.com/new-relic-monitor.png"
 
     @admin_list = YAML.load_file('config/administrators.yml')
-    @admin_list.each do |admin|
 
-      begin
+    begin
+      @admin_list.each do |admin|
         phone_number = admin['phone_number']
         send_message(phone_number, @alert_message, @image_url)
-        flash[:success] = "Exception: #{e}. Administrators will be notified."
-      rescue
-        flash[:alert] = "Something when wrong."
       end
-
+      
+      flash[:success] = "Exception: #{e}. Administrators will be notified."
+    rescue
+      flash[:alert] = "Something when wrong."
     end
+
 
     redirect_to '/'
   end
