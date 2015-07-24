@@ -1,14 +1,14 @@
 require 'test_helper'
 
 class NotificationsControllerTest < ActionController::TestCase
-  test "should get receiver" do
-    get :receiver
+  test "show home page" do
+    get :index
     assert_response :success
   end
 
-  test "should get sender" do
-    get :sender
-    assert_response :success
+  test "server error" do
+    get :server_error
+    assert_response 302
   end
 
 end
