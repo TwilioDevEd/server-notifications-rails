@@ -1,45 +1,112 @@
-.chapter(data-title='Server Notifications & Alerts')
-  .step(data-title='List server admins', data-file='config/administrators.yml')
+.chapter(data-title='Server Notifications and Alerts')
+  .step(data-file='config/administrators.yml')
+    :markdown
+      ## What does this thing do?
+
+      This [Ruby on Rails](http://rubyonrails.org/) sample application demonstrates
+      how to send SMS alerts to a list of system administrators if something goes
+      wrong on your server. In this tutorial, we'll show you the key bits of code
+      to make this work.
+
+      Let's get started!
+
+      ---
+
+      **See Also:**
+      * [Getting Started with Ruby on Rails](http://guides.rubyonrails.org/getting_started.html)
+      * [Getting started with the Twilio Ruby gem](http://twilio-ruby.readthedocs.org/en/latest/index.html#getting-started)
+
+  .step(data-file='config/administrators.yml')
     :markdown
       ## List server admins
 
-      Create a list of administrators who should be notified if a server error occurs. The only requirement we have is a `phone_number`.
+      Create a list of administrators who should be notified if a server error occurs. 
+      The only requirement we have is a `phone_number`.
 
-  .step(data-title='Configure Twilio client', data-file='app/controllers/notifications_controller.rb', data-highlight='40-43')
+      ---
+
+      **See Also:**
+      * [Ruby YAML docs](http://ruby-doc.org/stdlib-1.9.3/libdoc/yaml/rdoc/YAML.html)
+
+  .step(data-file='app/controllers/notifications_controller.rb', data-highlight='43-44')
     :markdown
       ## Configure Twilio client
 
-      In order to send a message we'll need to initiate the [Twilio REST client](http://twilio-ruby.readthedocs.org/en/latest/usage/basics.html#authentication), which requires pulling our `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`  [environment variables](http://ruby-doc.org/core-2.1.4/ENV.html).
+      In order to send a message we'll need to initialize the [Twilio REST client](http://twilio-ruby.readthedocs.org/en/latest/usage/basics.html#authentication), 
+      which requires reading our `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`  
+      [environment variables](http://ruby-doc.org/core-2.1.4/ENV.html).
 
-  .step(data-title='Handle all exceptions', data-file='app/controllers/notifications_controller.rb', data-highlight='3-5')
+      ---
+
+      **See Also:**
+      * [Getting started with the Twilio Ruby gem](http://twilio-ruby.readthedocs.org/en/latest/index.html#getting-started)
+      * [Authenticating a Twilio REST client in Ruby](http://twilio-ruby.readthedocs.org/en/latest/usage/basics.html#authentication)
+
+  .step(data-file='app/controllers/notifications_controller.rb', data-highlight='3-5')
     :markdown
       ## Handle all exceptions on a controller
 
-      Here we ensure any [`StandardError`](http://ruby-doc.org/core-2.2.0/Exception.html) triggers our alert methods with [`rescue_from`](http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html#method-i-rescue_from).
+      Here we ensure any [`StandardError`](http://ruby-doc.org/core-2.2.0/Exception.html) 
+      triggers our alert method with [`rescue_from`](http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html#method-i-rescue_from).
 
-  .step(data-title='Custom alert', data-file='app/controllers/notifications_controller.rb', data-highlight='7-13')
+      ---
+
+      **See Also:**
+      * [Rails Guides: Rescuing in the controller](http://guides.rubyonrails.org/action_controller_overview.html#rescue)
+
+  .step(data-file='app/controllers/notifications_controller.rb', data-highlight='7-13')
     :markdown
       ## Create a custom alert message
 
-      Here we create a custom alert message and include the raised exception. Additionally if available it would make sense to include a snapshot of any server monitor we might have.
+      Here we create an alert message to send out via text message. You might also
+      decide to include a picture with your alert message, maybe a screenshot of the
+      application when the crash happened?
 
-  .step(data-title='Read the admins', data-file='app/controllers/notifications_controller.rb', data-highlight='15-21')
+  .step(data-file='app/controllers/notifications_controller.rb', data-highlight='15-21')
     :markdown
-      ## Reading the admins from file
+      ## Reading the admins from the YAML file
 
-      Next we read the admins [from file](http://ruby-doc.org/stdlib-1.8.6/libdoc/yaml/rdoc/YAML.html#load_file-method), loop through them and fire off our SMS method.
+      Next we read the admins [from our YAML file](http://ruby-doc.org/stdlib-1.8.6/libdoc/yaml/rdoc/YAML.html#load_file-method)
+      and send alert messages to each of them with the private `send_message` method.
 
-  .step(data-title='Sending an SMS', data-file='app/controllers/notifications_controller.rb', data-highlight='41-54')
+  .step(data-file='app/controllers/notifications_controller.rb', data-highlight='41-54')
     :markdown
-      ## Sending an SMS
+      ## Sending a text message
 
-      Here are the three parameters needed to [send an SMS](https://www.twilio.com/docs/quickstart/ruby/sms/sending-via-rest) using the [Twilio REST API](https://www.twilio.com/docs/api/rest): a `:from`, `:to` and `:body`. At the end we simply print out the phone number we're dialing. [US phone numbers](https://www.twilio.com/help/faq/sms/is-mms-supported-for-all-carriers-in-us-and-canada) can also send an image with the message.
+      There are the three parameters needed to [send an SMS](https://www.twilio.com/docs/quickstart/ruby/sms/sending-via-rest) 
+      using the [Twilio REST API](https://www.twilio.com/docs/api/rest):  
+      `:from`, `:to`, and `:body`. After the message is sent, we print out the phone 
+      number we're texting. [US phone numbers](https://www.twilio.com/help/faq/sms/is-mms-supported-for-all-carriers-in-us-and-canada) 
+      can also send an image with the message.
 
-  .step(data-title='Finish')
+      ---
+
+      **See Also:**
+      * [REST API Docs for Message resource](https://www.twilio.com/docs/api/rest/message)
+      * [Your message logs in the account portal](https://www.twilio.com/user/account/log/messages)
+
+  .step
     :markdown
-      ## All Done!
+      ## Where to next?
 
-      That's it! We've just implemented an automated server notification system that can send you server alerts if anything goes wrong.
+      That's it! We've just implemented an automated server notification system 
+      that can send you server alerts if anything goes wrong. If you're a Ruby
+      developer working with Twilio, you might want to check out these other
+      tutorials.
 
-      Thanks for checking out this tutorial! If you have any feedback to share with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) to let us know what you think.
+      [**Two-Factor Authentication**](https://www.twilio.com/docs/howto/walkthrough/two-factor-authentication/ruby/rails)
+
+      Increase the security of your login system by verifying a user's mobile
+      phone in addition to their password.
+
+      [**Appointment Reminders**](https://www.twilio.com/docs/howto/walkthrough/appointment-reminders/ruby/rails)
+
+      Send your customers a text message when they have an upcoming appointment - 
+      this tutorial shows you how to do it from a background job.
+
+      ### Did this help?
+
+      Thanks for checking out this tutorial! If you have any feedback to share 
+      with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) 
+      to let us know what you think.
 
