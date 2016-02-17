@@ -1,8 +1,8 @@
 # Server Notifications & Alerts
 
-![server status](http://howtodocs.s3.amazonaws.com/new-relic-monitor.png "Server notifications")
+Use Twilio to send SMS alerts so that you never miss a critical issue.
 
-Use Twilio to create sms server alerts so that you never miss a critical server issue.
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails)!
 
 ## Running the application
 
