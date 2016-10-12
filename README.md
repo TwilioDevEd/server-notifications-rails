@@ -1,32 +1,59 @@
+<a href="https://www.twilio.com">
+  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
 # Server Notifications & Alerts
 
-Use Twilio to send SMS alerts so that you never miss a critical issue.
+[![Build Status](https://travis-ci.org/TwilioDevEd/server-notifications-rails.svg?branch=master)](https://travis-ci.org/TwilioDevEd/server-notifications-rails)
 
-[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails)!
+SMS notifications are a great way to alert humans quickly when important events
+happen. In this example, we'll show you how to send SMS notifications to a list
+of people when an error happens in a web application.
 
-## Running the application
+[Read the full tutorial here!](https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails)
 
-Clone this repository and cd into the directory then.
+## Local development
 
-```
-$ bundle install
-$ rake db:create db:migrate
-$ export TWILIO_ACCOUNT_SID=your account sid
-$ export TWILIO_AUTH_TOKEN=your auth token
-$ export TWILIO_NUMBER=+16515559999
-$ rake test
-$ rails server
-```
+This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
 
-Then visit the application at http://localhost:3000/
+1. First clone this repository and `cd` into it.
 
-## Deploy to Heroku
+   ```bash
+   $ git clone git://github.com/TwilioDevEd/server-notifications-rails.git
+   $ cd server-notifications-rails
+   ```
 
-Hit the button!
+1. Install the dependencies.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+   ```bash
+   $ bundle install
+   ```
 
-## Dependencies
+1. Copy the `.env.example` file to `.env`, and edit it including your credentials
+   for the Twilio API (found at https://www.twilio.com/console/account/settings).
+   You will also need a [Twilio Number](https://www.twilio.com/console/phone-numbers/incoming).
 
-This application uses this Twilio helper library:
-* twilio-ruby
+   Run `source .env` to export the environment variables.
+
+1. Edit the administrators listed in the [`config/administrators.yml`](config/administrators.yml).
+   Make sure to use real phone numbers otherwise the application won't work.
+
+1. Make sure the tests succeed.
+
+   ```bash
+   $ bundle exec rake test
+   ```
+
+1. Start the development server:
+
+   ```
+   $ bundle exec rails s
+   ```
+
+1. Check it out at [http://localhost:3000](http://localhost:3000).
+
+## Meta
+
+* No warranty expressed or implied.  Software is as is. Diggity.
+* [MIT License](http://www.opensource.org/licenses/mit-license.html)
+* Lovingly crafted by Twilio Developer Education.
