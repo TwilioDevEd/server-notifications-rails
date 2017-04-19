@@ -20,7 +20,7 @@ class NotificationsController < ApplicationController
         send_message(phone_number, @alert_message, @image_url)
         flash[:success] = "Exception: #{e}. Administrators will be notified."
       rescue
-        flash[:alert] = "Something when wrong."
+        flash[:alert] = "Something went wrong."
       end
 
     end
