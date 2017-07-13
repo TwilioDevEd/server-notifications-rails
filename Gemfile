@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Twilio
-gem 'twilio-ruby', '~> 5.0.0.rc17'
+gem 'twilio-ruby', '~> 5.0.0'
 
 # Use bootstrap themes
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
@@ -37,4 +37,3 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
