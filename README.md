@@ -20,12 +20,6 @@ $ rails server
 
 Then visit the application at http://localhost:3000/
 
-## Deploy to Heroku
-
-Hit the button!
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
 ## Dependencies
 
 This application uses this Twilio helper library:
