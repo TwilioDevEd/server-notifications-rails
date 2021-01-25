@@ -4,7 +4,7 @@
 
 # Server Notifications & Alerts
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/server-notifications-rails.svg?branch=master)](https://travis-ci.org/TwilioDevEd/server-notifications-rails)
+![](https://github.com/TwilioDevEd/server-notification-rails/workflows/build/badge.svg)
 
 SMS notifications are a great way to alert humans quickly when important events
 happen. In this example, we'll show you how to send SMS notifications to a list
@@ -41,7 +41,7 @@ This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
 1. Make sure the tests succeed.
 
    ```bash
-   $ bundle exec rake test
+   $ bundle exec rails test
    ```
 
 1. Start the development server:
@@ -55,5 +55,5 @@ This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
 ## Meta
 
 * No warranty expressed or implied.  Software is as is. Diggity.
-* [MIT License](http://www.opensource.org/licenses/mit-license.html)
+* [MIT License](LICENSE)
 * Lovingly crafted by Twilio Developer Education.

@@ -37,7 +37,7 @@ MSG
   private
 
   def send_message(phone_number, alert_message, image_url)
-    twilio_number = ENV['TWILIO_NUMBER']
+    twilio_number = ENV['WILIO_PHONE_NUMBER']
     client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
 
     client.messages.create(
