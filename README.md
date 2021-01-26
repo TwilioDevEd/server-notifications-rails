@@ -33,8 +33,6 @@ This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
    for the Twilio API (found at https://www.twilio.com/console/account/settings).
    You will also need a [Twilio Number](https://www.twilio.com/console/phone-numbers/incoming).
 
-   Run `source .env` to export the environment variables.
-
 1. Edit the administrators listed in the [`config/administrators.yml`](config/administrators.yml).
    Make sure to use real phone numbers otherwise the application won't work.
 
