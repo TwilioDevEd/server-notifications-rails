@@ -4,7 +4,7 @@
 
 # Server Notifications & Alerts
 
-![](https://github.com/TwilioDevEd/server-notification-rails/workflows/build/badge.svg)
+![](https://github.com/TwilioDevEd/server-notification-rails/actions/workflows/build.yml/badge.svg)
 
 SMS notifications are a great way to alert humans quickly when important events
 happen. In this example, we'll show you how to send SMS notifications to a list
