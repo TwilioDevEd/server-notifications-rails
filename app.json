@@ -6,7 +6,7 @@
   "keywords": [
     "notifications", "server monitoring", "servers", "server automation", "automation", "sms notifications", "rails sms"
   ],
-  "addons": ["heroku-postgresql:hobby-dev"],
+  "addons": [],
   "env": {
     "TWILIO_ACCOUNT_SID": {
       "description": "Your Twilio account secret ID, you can find at: https://www.twilio.com/user/account",
@@ -23,8 +23,5 @@
       "value": "+15005550006",
       "required": true
     }
-  },
-  "scripts": {
-    "postdeploy": "bundle exec rake db:create db:migrate"
   }
 }
