@@ -10,7 +10,7 @@ It appears the server is having issues.
 Exception: #{exception}.
 Go to: http://newrelic.com for more details."
 MSG
-    image_url = 'http://howtodocs.s3.amazonaws.com/new-relic-monitor.png'
+    image_url = 'https://deved-5712.twil.io/datadog_monitor.png'
 
     admins = YAML.load_file('config/administrators.yml')
     admins.each do |admin|
